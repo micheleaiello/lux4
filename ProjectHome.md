@@ -1,0 +1,1 @@
+LUX4 is a powerful and fast communication protocol for Remote Procedure Call (RPC). The library provides both Client and Server classes. C/C++ porting is planned but for the Client side only. LUX4 performances are far ahead of other RPC protocols.
