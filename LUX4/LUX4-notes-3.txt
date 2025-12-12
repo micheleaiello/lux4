@@ -1,0 +1,5 @@
+TODO: - A method for the shutdown/stop of the dispatcher.
+      - EventLoop in a separate thread.
+      - invoke can choose to wait until a channel is free for the request.
+      - set with parameters on MultiRequest.
+      - Request and MultiRequest pools.

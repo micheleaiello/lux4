@@ -1,0 +1,21 @@
+Changes:
+	2.0.0 Added aggregator invoker and exception handling.
+
+	1.8.0a TDW
+
+	1.7.0 Added support for methods with no arguments.
+
+	1.6.0 Added multi parameters support.
+	      Now each method on the server can take more than one parameter as input.
+		public String <method_name> (String one, String two, ..., String n)
+
+	1.5.0 Added multi operations support.
+	      Now more than one operation can be defined on the server.
+	      The operations must all have the following signature:
+		public String <method_name> (String inputValue)
+
+	1.2.0 Mahor bug fixing.
+
+	1.0.0 Initial Release. 
+	      Only one simple operation can be defined on the server: 
+		public String handle (String inputValue).

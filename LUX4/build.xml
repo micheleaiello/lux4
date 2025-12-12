@@ -1,0 +1,99 @@
+<project name="LUX4" default="build" basedir=".">
+
+    <property name="src" value="./src"/>
+    <property name="out" value="./out"/>
+    <property name="docs" value="./docs"/>
+    <property name="lib" value="./lib"/>
+    <property name="properties" value="./properties"/>
+    <property name="reports" value="./reports"/>
+
+
+    <path id="project.classpath.id">
+        <pathelement location="${properties}"/>
+        <pathelement location="${out}"/>
+        <fileset dir="${lib}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+    <property name="project.classpath" refid="project.classpath.id"/>
+
+    <target name="build" description="Builds LUX4">
+
+        <buildnumber/>
+        <copy file="build.number" tofile="${out}/LUX4Build.properties" />
+
+        <tstamp>
+            <format property="build.timestamp" pattern="dd/MM/yyyy HH:mm"/>
+        </tstamp>
+
+        <echo file="${out}/LUX4Build.properties" append="true">
+            build.timestamp=${build.timestamp}
+            user.name=${user.name}
+            os.name=${os.name}
+            java.vm.version=${java.vm.version}
+        </echo>
+
+        <echo message="Build properties: Build: ${build.number}, User Name: ${user.name}, OS: ${os.name}, Java: ${java.vm.version}, TS: ${build.timestamp}"/>
+
+        <antcall target="make_jar"/>
+        <antcall target="zip_docs"/>
+    </target>
+
+    <target name="compile">
+        <javac srcdir="${src}:${lib}" destdir="${out}" debug="on" optimize="on">
+            <classpath path="${project.classpath}"/>
+        </javac>
+    </target>
+
+    <target name="clean">
+        <delete file="LUX4.jar"/>
+        <delete dir="${out}/com"/>
+    </target>
+
+    <target name="make_jar" depends="clean, compile" description="Creates the jar file." >
+        <delete file="LUX4.jar"/>
+        <jar jarfile="LUX4.jar" basedir="./out/" includes="com/**,LUX4Build.properties"
+            excludes="com/eris4/lux4/test/**,com/eris4/lux4/unittest/**,readme.txt" manifest="MANIFEST.MF"/>
+    </target>
+
+    <target name="make_docs">
+        <delete dir="${docs}"/>
+        <javadoc  packagenames="com.eris4.lux4.*"
+            excludepackagenames="com.eris4.lux4.test.*"
+            sourcepath="${src}"
+            destdir="${docs}"
+            Private="false">
+            <classpath path="${project.classpath}"/>
+        </javadoc>
+    </target>
+
+    <target name="zip_docs" depends="make_docs">
+        <zip zipfile="LUX4_api.zip" basedir="${docs}"/>
+    </target>
+
+        <target name="AllUnitTests">
+        <delete dir="${reports}"/>
+        <mkdir dir="${reports}"/>
+        <mkdir dir="${reports}/xml"/>
+        <junit printsummary="yes">
+            <formatter type="xml" usefile="true"/>
+            <batchtest fork="yes" todir="./${reports}/xml">
+                <fileset dir="${src}">
+                    <include name="**/**/**/*Test.java" />
+                </fileset>
+            </batchtest>
+
+            <classpath path="${project.classpath}"/>
+
+        </junit>
+
+        <junitreport todir="./${reports}/xml">
+            <fileset dir="./${reports}/xml">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="./${reports}/html"/>
+        </junitreport>
+    </target>
+
+</project>

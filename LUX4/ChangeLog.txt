@@ -1,0 +1,34 @@
+LUX4 2.1.0
+    - Added a control line at the end of each request.
+    - Auto reconnection in case of IOException. Reconnection parameters configurable via properties file:
+        [
+            # Reconnection
+            NumberOfRetries=5
+            RetriesSleepingTime=10000
+        ]
+    - Changed some method signature to avoid throwing IOException
+    - Mesured Performances of ~700 Events/sec for Single Thread Single Request (on Remote) and ~40KEvents/sec
+        for Single Thread Multi Request (Block Size = 1000).
+
+LUX4 2.0.8
+    - Improved logging.
+
+LUX4 2.0.7
+    - Improved logging.
+
+LUX4 2.0.6
+    - Added SoTimeout settings for server and client socket configurable via properties file:
+        [
+            # SoTimeouts
+            ServerSocketSoTimeout=1000
+            ClientSocketSoTimeout=10000
+        ]
+        This settings are usefull in case of a severe network problem. In that case if you don't have a client socket
+        SoTimeout setted the open connections will remain active forever.
+
+    - Removed some prints on standard output and added the same prints as info loggin.
+
+LUX4 2.0.3
+    - Java 1.3 Compatible.
+        - Removed Asserts, and new exception handling.
+    - Thread.yeald() from properties file.
