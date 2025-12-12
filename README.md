@@ -6,3 +6,6 @@ LUX4 is a powerful and fast communication protocol for Remote Procedure Call (RP
 - Github: https://github.com/micheleaiello/lux4
 - About Page: https://lux4.sourceforge.net
 - Sourceforge: http://sourceforge.net/projects/lux4
+
+## Note
+This project has concluded in December 2008. Unfortunately the history is lost (I'm trying to recover it) since the export from GoogleCode to Github failed.
